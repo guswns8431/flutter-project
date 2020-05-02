@@ -1,4 +1,4 @@
-# instagram_clon
+# instagram_clone
 
 A new Flutter project.
 
@@ -16,4 +16,4 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 # flutter
 # flutter
-# flutter-Instagram-Clon
+# flutter-Instagram-Clone
