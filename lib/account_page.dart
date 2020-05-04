@@ -22,7 +22,7 @@ class _AccountPageState extends State<AccountPage> {
        body: _buildBody(),
     );
   }
-
+ 
   Widget _buildAppBar(){
     return AppBar(
       actions: <Widget>[
