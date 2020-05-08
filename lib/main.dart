@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toy/MyAnimatedContainer.dart';
 import 'package:toy/MyAnimatedOpacity.dart';
 import 'package:toy/MyDrawer.dart';
+import 'package:toy/MySnackBar.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -53,6 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text('Drawer'),
           onTap: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => MyDrawer()));
+          },
+        ),
+        ListTile(
+          title: Text('SnackBar'),
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MySnackBar()));
           },
         ),
       ],
