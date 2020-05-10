@@ -4,6 +4,7 @@ import 'package:toy/MyAnimatedOpacity.dart';
 import 'package:toy/MyDrawer.dart';
 import 'package:toy/MyOrientation.dart';
 import 'package:toy/MySnackBar.dart';
+import 'package:toy/MyTabController.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -69,6 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text('OrientationBuilder'),
           onTap: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => MyOrientation()));
+          },
+        ),
+        ListTile(
+          title: Text('TabController'),
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyTabController()));
           },
         ),
       ],
