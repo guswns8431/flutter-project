@@ -5,6 +5,7 @@ import 'package:toy/MyDrawer.dart';
 import 'package:toy/MyFormValidation.dart';
 import 'package:toy/MyOrientation.dart';
 import 'package:toy/MySnackBar.dart';
+import 'package:toy/MySwipeToDismiss.dart';
 import 'package:toy/MyTabController.dart';
 void main() => runApp(MyApp());
 
@@ -83,6 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text('FormValidation'),
           onTap: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => MyFormValidation()));
+          },
+        ),
+        ListTile(
+          title: Text('Dismissible'),
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MySwipeToDismiss()));
           },
         ),
       ],

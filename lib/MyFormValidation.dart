@@ -56,8 +56,8 @@ class _MyFormValidationState extends State<MyFormValidation> {
             ),
             TextField(
               controller: nameController,
-              onChanged: (text){
-                print(text);
+              onChanged: (number){
+                print(number);
               },
               focusNode: nameFocusNode,
               decoration: InputDecoration(
