@@ -5,6 +5,7 @@ import 'package:toy/MyDrawer.dart';
 import 'package:toy/MyFormValidation.dart';
 import 'package:toy/MyMethodChannel.dart';
 import 'package:toy/MyOrientation.dart';
+import 'package:toy/MyPageView.dart';
 import 'package:toy/MySnackBar.dart';
 import 'package:toy/MySwipeToDismiss.dart';
 import 'package:toy/MyTabController.dart';
@@ -97,6 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text('MethodChannel'),
           onTap: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => MyMethodChannel()));
+          },
+        ),
+        ListTile(
+          title: Text('PageView'),
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyPageView()));
           },
         ),
       ],
