@@ -2,6 +2,7 @@ import 'package:fine_dust/models/AirResult.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -71,7 +72,12 @@ class _MainState extends State<Main> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
-                                Text('얼굴사진 ${DateTime.now()}'),
+                                Column(
+                                  children: <Widget>[
+                                    Text('${DateFormat('MM월dd일').format(DateTime.now())}'),
+                                    Text('${DateFormat('kk시mm분').format(DateTime.now())}'),
+                                  ],
+                                ),
                                 Text(
                                   '${_result.data.current.pollution.aqius}',
                                   style: TextStyle(fontSize: 40),
