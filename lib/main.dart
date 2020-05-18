@@ -1,10 +1,11 @@
+import 'package:fine_dust/bloc/AirBloc.dart';
 import 'package:fine_dust/models/AirResult.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
+
+final airBloc = AirBloc();
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -26,33 +27,24 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  AirResult _result;
-
-  Future<AirResult> fetchData() async {
-    var response = await http.get(
-        'https://api.airvisual.com/v2/nearest_city?key=7f43af33-3630-4a22-a682-e6f722d43db7');
-
-    AirResult result = AirResult.fromJson(json.decode(response.body));
-
-    return result;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData().then((airResult) {
-      setState(() {
-        _result = airResult;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _result == null
-          ? Center(child: CircularProgressIndicator())
-          : Padding(
+      body: StreamBuilder<AirResult>(
+          stream: airBloc.airResult,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return buildPadding(snapshot.data);
+            } else {
+              return CircularProgressIndicator();
+            }
+          }),
+    );
+  }
+
+    Widget buildPadding(AirResult _result) {
+    return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Column(
@@ -70,12 +62,15 @@ class _MainState extends State<Main> {
                         children: <Widget>[
                           Container(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 Column(
                                   children: <Widget>[
-                                    Text('${DateFormat('MM월dd일').format(DateTime.now())}'),
-                                    Text('${DateFormat('kk시mm분').format(DateTime.now())}'),
+                                    Text(
+                                        '${DateFormat('MM월dd일').format(DateTime.now())}'),
+                                    Text(
+                                        '${DateFormat('kk시mm분ss초').format(DateTime.now())}'),
                                   ],
                                 ),
                                 Text(
@@ -94,7 +89,8 @@ class _MainState extends State<Main> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
@@ -131,17 +127,14 @@ class _MainState extends State<Main> {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          setState(() {
-                            fetchData();
-                          });
+                          airBloc.fetch();
                         },
                       ),
                     )
                   ],
                 ),
               ),
-            ),
-    );
+            );
   }
 
   Color getColor(AirResult result) {
