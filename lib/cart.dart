@@ -22,8 +22,8 @@ class _CartState extends State<Cart> {
           bloc: _cartBloc,
           builder: (BuildContext context, List state) {
             var sum = 0;
-            if(state.length > 0) {
-              sum = state.map((item)=>item.price).reduce((acc,e)=>acc + e);
+            if (state.length > 0) {
+              sum = state.map((item) => item.price).reduce((acc, e) => acc + e);
             }
             return Center(
               child: Text(
