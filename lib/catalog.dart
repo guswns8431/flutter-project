@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cart_bloc/bloc/cart_bloc.dart';
 import 'package:flutter_cart_bloc/cart.dart';
 import 'package:flutter_cart_bloc/item.dart';
+import 'package:flutter_cart_bloc/main.dart';
 
 class Catalog extends StatefulWidget {
   @override
@@ -10,11 +11,9 @@ class Catalog extends StatefulWidget {
 }
 
 class _CatalogState extends State<Catalog> {
-  List<Item> _itemList = itemList;
 
   @override
   Widget build(BuildContext context) {
-    final _cartBloc = BlocProvider.of<CartBloc>(context);
 
     return Scaffold(
         appBar: AppBar(
@@ -28,21 +27,20 @@ class _CatalogState extends State<Catalog> {
             )
           ],
         ),
-        body: BlocProvider(
-          bloc: _cartBloc,
-          child: BlocBuilder(
-            bloc: _cartBloc,
-            builder: (BuildContext context, List state) {
-              return ListView(
-                  children: _itemList
-                      .map((item) => _buildItem(item, state, _cartBloc))
+        body: StreamBuilder(
+          stream: cartBloc.cartList,
+          builder: (context,snapshot){
+            return ListView(
+                  children: cartBloc.itemList
+                      .map((item) => _buildItem(item, snapshot.data))
                       .toList());
-            },
-          ),
-        ));
+            }
+          )
+        );
+       }
   }
 
-  Widget _buildItem(Item item, List state, CartBloc cartBloc) {
+  Widget _buildItem(Item item, List<Item> state) {
     final isChecked = state.contains(item);
 
     return Padding(
@@ -60,17 +58,14 @@ class _CatalogState extends State<Catalog> {
                 )
               : Icon(Icons.check),
           onPressed: () {
-            setState(() {
               if(isChecked){
-              cartBloc.dispatch(CartEvent(CartEventType.remove,item));
+              cartBloc.add(CartEvent(CartEventType.remove,item));
             } else{
-              cartBloc.dispatch(CartEvent(CartEventType.add,item));
+              cartBloc.add(CartEvent(CartEventType.add,item));
             }
-            });
           },
         ),
       ),
       padding: const EdgeInsets.all(8.0),
     );
   }
-}

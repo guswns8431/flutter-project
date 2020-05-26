@@ -1,33 +1,39 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc/bloc.dart';
-import '../item.dart';
+import 'package:flutter_cart_bloc/item.dart';
+import 'package:rxdart/rxdart.dart';
 
-enum CartEventType{
-  add,remove
-}
+enum CartEventType { add, remove }
 
-class CartEvent{
+class CartEvent {
   final CartEventType type;
   final Item item;
 
   CartEvent(this.type, this.item);
 }
 
-class CartBloc extends Bloc<CartEvent, List<Item>>{
-  @override
-  List<Item> get initialState => [];
+class CartBloc {
+  final itemList = [
+    Item("맥북1", 2000000),
+    Item("맥북2", 3000),
+    Item("맥북3", 402000),
+    Item("맥북4", 5005000),
+    Item("맥북5", 600000),
+  ];
 
-  @override
-  Stream<List<Item>> mapEventToState(CartEvent event) async* {
+  final _cartList = List<Item>();
+
+  final _cartListSubject = BehaviorSubject<List<Item>>.seeded([]);
+
+  Stream<List<Item>> get cartList => _cartListSubject.stream;
+
+  void add(CartEvent event){
     switch(event.type){
-      case CartEventType.add:
-        currentState.add(event.item);
-        break;
       case CartEventType.remove:
-        currentState.remove(event.item);
+        _cartList.remove(event.item);
+        break;
+      case CartEventType.add:
+        _cartList.add(event.item);
         break;
     }
-    yield currentState;
+    _cartListSubject.add(_cartList);
   }
-
 }
