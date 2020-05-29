@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import './src/login-screen.dart';
+import './src/catalog-page.dart';
+import './src/cart-page.dart';
+import './bloc/cart-bloc-inherited-provider.dart';
 
 void main() => runApp(MyApp());
 

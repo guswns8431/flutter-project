@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../model/item.dart';
 import '../bloc/cart-bloc-inherited.dart';
 import '../bloc/cart-bloc-inherited-provider.dart';
 
