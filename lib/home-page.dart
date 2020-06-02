@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Center(
         child: Column(children: <Widget>[
-          Text('홈화면'),
+          Text('나의 단어장'),
           RaisedButton(
             child: Text("오답노트"),
             onPressed: (){

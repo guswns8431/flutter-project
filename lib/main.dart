@@ -10,18 +10,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          primaryColor: Colors.red,
-          primarySwatch: Colors.blue,
-          accentColor: Colors.black,
-        ),
-        home: IncorrectNote(),
-        routes: {
-          'incorrectNote' : (context) => IncorrectNote(),
-          'home' : (context) => HomePage(),
-          'add' : (context) => AddPage(),
-          'quiz' : (context) => QuizPage(),
-        },
-        );
+      theme: ThemeData(
+        primaryColor: Colors.red,
+        primarySwatch: Colors.blue,
+        accentColor: Colors.black,
+      ),
+      home: IncorrectNote(),
+      routes: {
+        'incorrectNote': (context) => IncorrectNote(),
+        'home': (context) => HomePage(),
+        'add': (context) => AddPage(),
+        'quiz': (context) => QuizPage(),
+      },
+    );
   }
 }
