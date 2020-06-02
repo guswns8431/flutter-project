@@ -30,6 +30,12 @@ class _AddPageState extends State<AddPage> {
           Container(
             width: 250,
             child: TextField(
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                  hintStyle: TextStyle(
+                    fontSize: 17,
+                  ),
+                  labelText: '단어'),
               controller: _englishController,
             ),
           ),
@@ -39,6 +45,9 @@ class _AddPageState extends State<AddPage> {
           Container(
             width: 250,
             child: TextField(
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                  hintStyle: TextStyle(fontSize: 17), labelText: '해석'),
               controller: _koreanController,
             ),
           ),
