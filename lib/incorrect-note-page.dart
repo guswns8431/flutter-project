@@ -32,11 +32,7 @@ class _IncorrectNoteState extends State<IncorrectNote> {
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.blue),
                 ),
-                child: Center(
-                    child: Text(
-                  '영어/한글', //TODO: 다바애 았는 내용이 랜덤으로 출력
-                  style: TextStyle(fontSize: 25),
-                ))),
+            ),
             Padding(
               padding: EdgeInsets.all(8.0),
             ),

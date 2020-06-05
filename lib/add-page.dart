@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class AddPage extends StatefulWidget {
   @override
@@ -6,9 +7,10 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  final TextEditingController _koreanController =
-      TextEditingController(); //TODO: 이렇게 컨트롤러 한개씩 할당 받는 게 맞는건지
+  final TextEditingController _koreanController = TextEditingController();
   final TextEditingController _englishController = TextEditingController();
+
+  final firebaseDatabase = FirebaseDatabase.instance.reference();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class _AddPageState extends State<AddPage> {
             child: RaisedButton(
               child: Text('입력'),
               onPressed: () {
-                //TODO: 버튼을 누르면 디비에 입력한 단어가 전송 및 저장
+                createRecord();
               },
             ),
           ),
@@ -80,5 +82,11 @@ class _AddPageState extends State<AddPage> {
         ],
       ),
     ));
+  }
+
+  void createRecord() {
+    firebaseDatabase.child("word").update({
+    '${_englishController.text}':'${_koreanController.text}',
+    });
   }
 }
