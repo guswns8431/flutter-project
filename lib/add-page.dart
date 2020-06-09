@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
+
+int wordID = 0;
 
 class AddPage extends StatefulWidget {
   @override
@@ -9,8 +11,6 @@ class AddPage extends StatefulWidget {
 class _AddPageState extends State<AddPage> {
   final TextEditingController _koreanController = TextEditingController();
   final TextEditingController _englishController = TextEditingController();
-
-  final firebaseDatabase = FirebaseDatabase.instance.reference();
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +85,10 @@ class _AddPageState extends State<AddPage> {
   }
 
   void createRecord() {
-    firebaseDatabase.child("word").update({
-    '${_englishController.text}':'${_koreanController.text}',
+    Firestore.instance.collection("wordbook").add({
+      'English':'${_englishController.text}',
+      'Korean' : '${_koreanController.text}',
     });
   }
+
 }

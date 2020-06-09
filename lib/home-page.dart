@@ -58,6 +58,19 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushNamed(context, 'quiz');
                 },
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+            ),
+            Container(
+              width: 200,
+              height: 75,
+              child: RaisedButton(
+                child: Text('단어장'),
+                onPressed: () {
+                  Navigator.pushNamed(context, 'wordList');
+                },
+              ),
             )
           ],
         ),
