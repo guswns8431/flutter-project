@@ -6,6 +6,7 @@ class WordList extends StatefulWidget {
   _WordListState createState() => _WordListState();
 }
 
+//TODO: 삭제 기능도 만들어야함
 class _WordListState extends State<WordList> {
   @override
   Widget build(BuildContext context) {
@@ -27,31 +28,36 @@ class _WordListState extends State<WordList> {
                       children: snapshot.data.documents
                           .map((DocumentSnapshot document) {
                         return Card(
-                          child: Container(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      document['English'],
-                                      style: TextStyle(
-                                        color: Colors.blueGrey,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
+                          child: InkWell(
+                            onTap: () {
+                              addIncorrectNote(document.documentID);
+                            },
+                            child: Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        document['English'],
+                                        style: TextStyle(
+                                          color: Colors.blueGrey,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    document['Korean'],
-                                    style: TextStyle(color: Colors.black54),
+                                    ],
                                   ),
-                                )
-                              ],
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      document['Korean'],
+                                      style: TextStyle(color: Colors.black54),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -70,5 +76,17 @@ class _WordListState extends State<WordList> {
         ],
       ),
     );
+  }
+
+  void addIncorrectNote(String documentID) {
+    Firestore.instance
+        .collection('wordbook')
+        .document(documentID)
+        .get()
+        .then((doc) {
+      Firestore.instance
+          .collection('incorrect_note')
+          .add({'${doc['English']}': '${doc['Korean']}'});
+    });
   }
 }
